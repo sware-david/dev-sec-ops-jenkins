@@ -1,6 +1,6 @@
-import com.sware.core.logging.LogManager
-
 package com.sware.core.config
+
+import com.sware.core.logging.LogManager
 
 class AgentManager {
     static void configureAgent() {
