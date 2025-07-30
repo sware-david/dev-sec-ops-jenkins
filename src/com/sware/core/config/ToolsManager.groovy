@@ -9,11 +9,9 @@ class ToolsManager implements Serializable {
 
     public void configureTools() {
         LogManager.info("Configuring tools: Maven and java")
-        this.steps.node('local_worker') {
-            steps.sh {
-                'mvn -v'
-                'java --version'
-            }
+        steps.sh {
+            'mvn -v'
+            'java --version'
         }
     }
 }
