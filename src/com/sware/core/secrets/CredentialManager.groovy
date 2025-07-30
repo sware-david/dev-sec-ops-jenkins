@@ -5,7 +5,7 @@ import groovy.json.JsonSlurper
 import com.sware.core.services.EnvironmentManager
 import com.sware.core.logging.LogManager
 
-class CredentialManager {
+class CredentialManager implements Serializable {
 
     private static String JAVA_ARGS = ""
     private static String jiraCredentials = "xray_saas_client_id;xray_saas_client_secret;jira_user;jira_token"

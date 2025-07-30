@@ -1,6 +1,6 @@
 package com.sware.core.services
 
-class LogManager {
+class LogManager implements Serializable {
     public static void info(String message) {
         println "Info: $message"
     }

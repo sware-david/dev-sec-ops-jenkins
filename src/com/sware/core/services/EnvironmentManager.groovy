@@ -2,7 +2,7 @@ package com.sware.core.services
 
 import com.sware.core.logging.LogManager
 
-class EnvironmentManager {
+class EnvironmentManager implements Serializable {
 
     private static String environment = "dev"
 
