@@ -1,6 +1,6 @@
 package com.sware.core.tasks
 
-class PostExecution {
+class PostExecution implements Serializable {
     public static void runPostTask() {
         always {
             echo "Pipeline completed!"

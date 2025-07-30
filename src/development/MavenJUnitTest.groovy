@@ -8,47 +8,47 @@ import com.sware.core.tasks.PostExecution
 
 class MavenJUnitTest implements Serializable {
     def static logger = LogManager
-    protected steps
+    def script
     private static String karateOpts = ""
     private static String jira = "-Djxray.update.evidence=true"
 
-    MavenJUnitTest(steps) {
-        this.steps = steps
+    MavenJUnitTest(script) {
+        this.script = script
     }
 
     public void checkTools() {
-        this.steps.sh {
+        this.script.steps.sh {
             'mvn -v'
             'java --version'
         } 
     }
 
     public void configureAgent() {
-        this.steps {
+        this.script.steps {
             AgentManager.configureAgent()
         }
     }
 
     public void configureEnv(String env) {
-        this.steps {
+        this.script.steps {
             EnvironmentManager.setupEnvironment(env)
         }
     }
 
     public void installDependencies() {
-        this.steps.sh {
+        this.script.steps.sh {
             'mvn clean install -DskipTests'
         }
     }
 
     public void compileProject() {
-        this.steps.sh {
+        this.script.steps.sh {
             'mvn compile test-compile'
         }
     }
 
     public void runTestKarate(String tags) {
-        this.steps {
+        this.script.steps {
             logger.info("fetching comand to test ...")
 
             String runEnv = EnvironmentManager.getEnv()
@@ -60,12 +60,12 @@ class MavenJUnitTest implements Serializable {
             jira += CredentialManager.loadJiraXrayCredentials()
             String command = "${karateOpts} ${jira}"
             logger.info("Running tests ...")
-            this.steps.sh "${command}"
+            this.script.steps.sh "${command}"
         }
     }
 
     public void runPostTask() {
-        this.steps {
+        this.script.steps {
             PostExecution.runPostTask()
         }
     }
