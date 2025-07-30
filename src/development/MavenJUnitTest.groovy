@@ -8,12 +8,12 @@ import com.sware.core.tasks.PostExecution
 
 class MavenJUnitTest implements Serializable {
     def static logger = LogManager
-    protected script
+    protected steps
     private static String karateOpts = ""
     private static String jira = "-Djxray.update.evidence=true"
 
-    MavenJUnitTest(script) {
-        this.script = script
+    MavenJUnitTest(steps) {
+        this.steps = steps
     }
 
     public void checkTools() {
@@ -23,9 +23,14 @@ class MavenJUnitTest implements Serializable {
         } 
     }
 
-    public void configureEnv(String env) {
-        this.script.steps {
+    public void configureAgent() {
+        this.steps {
             AgentManager.configureAgent()
+        }
+    }
+
+    public void configureEnv(String env) {
+        this.steps {
             EnvironmentManager.setupEnvironment(env)
         }
     }
