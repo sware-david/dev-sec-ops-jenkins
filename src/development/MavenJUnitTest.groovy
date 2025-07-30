@@ -6,7 +6,7 @@ import com.sware.core.config.AgentManager
 import com.sware.core.secrets.CredentialManager
 import com.sware.core.tasks.PostExecution
 
-class MavenJUnitTest {
+class MavenJUnitTest implements Serializable {
     def static logger = LogManager
     protected script
     private static String karateOpts = ""
