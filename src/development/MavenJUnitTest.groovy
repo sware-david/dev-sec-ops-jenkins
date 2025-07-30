@@ -2,53 +2,36 @@ package development
 
 import com.sware.core.services.LogManager
 import com.sware.core.services.EnvironmentManager
-import com.sware.core.config.AgentManager
 import com.sware.core.secrets.CredentialManager
-import com.sware.core.tasks.PostExecution
 
 class MavenJUnitTest implements Serializable {
-    def static logger = LogManager
-    def script
+    def logger = LogManager
+    def steps
     private static String karateOpts = ""
     private static String jira = "-Djxray.update.evidence=true"
 
-    MavenJUnitTest(script) {
-        this.script = script
-    }
-
-    public void checkTools() {
-        this.script.steps.sh {
-            'mvn -v'
-            'java --version'
-        } 
-    }
-
-    public void configureAgent() {
-        this.script.steps {
-            AgentManager.configureAgent()
-        }
-    }
+    MavenJUnitTest(steps) { this.steps = steps }
 
     public void configureEnv(String env) {
-        this.script.steps {
+        steps {
             EnvironmentManager.setupEnvironment(env)
         }
     }
 
     public void installDependencies() {
-        this.script.steps.sh {
+        steps.sh {
             'mvn clean install -DskipTests'
         }
     }
 
     public void compileProject() {
-        this.script.steps.sh {
+        steps.sh {
             'mvn compile test-compile'
         }
     }
 
     public void runTestKarate(String tags) {
-        this.script.steps {
+        steps {
             logger.info("fetching comand to test ...")
 
             String runEnv = EnvironmentManager.getEnv()
@@ -60,13 +43,8 @@ class MavenJUnitTest implements Serializable {
             jira += CredentialManager.loadJiraXrayCredentials()
             String command = "${karateOpts} ${jira}"
             logger.info("Running tests ...")
-            this.script.steps.sh "${command}"
-        }
-    }
 
-    public void runPostTask() {
-        this.script.steps {
-            PostExecution.runPostTask()
+            sh "${command}"
         }
     }
 }
