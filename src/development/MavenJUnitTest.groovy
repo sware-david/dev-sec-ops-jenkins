@@ -4,14 +4,14 @@ import com.sware.core.services.LogManager
 import com.sware.core.services.EnvironmentManager
 import com.sware.core.config.AgentManager
 import com.sware.core.secrets.CredentialManager
-import com.sware.core.task.PostExecution
+import com.sware.core.tasks.PostExecution
 
-class MavenJUnitTest implements Serializable {
-    def logger = LogManager
+class MavenJUnitTest {
+    def static logger = LogManager
     private static String karateOpts = ""
     private static String jira = "-Djxray.update.evidence=true"
 
-    public static void checkTools() {
+    public void checkTools() {
         this.script.steps.sh 'mvn -v'
         this.script.steps.sh 'java --version'
     }
@@ -42,7 +42,7 @@ class MavenJUnitTest implements Serializable {
         jira += CredentialManager.loadJiraXrayCredentials()
         String command = "${karateOpts} ${jira}"
         logger.info("Running tests ...")
-        this.script.steps.sh comand
+        this.script.steps.sh "${command}"
     }
 
     public static void runPostTask() {

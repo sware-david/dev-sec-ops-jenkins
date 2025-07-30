@@ -3,9 +3,9 @@ package com.sware.core.secrets
 import groovy.json.JsonSlurper
 
 import com.sware.core.services.EnvironmentManager
-import com.sware.core.logging.LogManager
+import com.sware.core.services.LogManager
 
-class CredentialManager implements Serializable {
+public class CredentialManager {
 
     private static String JAVA_ARGS = ""
     private static String jiraCredentials = "xray_saas_client_id;xray_saas_client_secret;jira_user;jira_token"
@@ -17,7 +17,7 @@ class CredentialManager implements Serializable {
         LogManager.info("Reading file complete")
         ArrayList credentialsToComplete = []
 
-        inputJson.each { value ->
+        jsonSecrets.each { value ->
             credentialsToComplete.add("${value.nameCredential}")
         }
 
