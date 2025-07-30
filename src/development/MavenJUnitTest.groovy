@@ -12,7 +12,7 @@ class MavenJUnitTest {
     private static String karateOpts = ""
     private static String jira = "-Djxray.update.evidence=true"
 
-    public static void checTools() {
+    public static void checkTools() {
         this.script.steps.sh 'mvn -v'
         this.script.steps.sh 'java --version'
     }
