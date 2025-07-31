@@ -11,7 +11,10 @@ public class EnvironmentManager {
     }
 
     public static void setupEnvironment(String env) {
-        if (env.equals("dev") || env.equals("qa")) {
+        if (env == null || env.isEmpty()) {
+            LogManager.warn("Environment is null or empty, setting to default 'dev'")
+            environment = "dev"
+        } else if (env.equals("dev") || env.equals("qa")) {
             environment = env
             LogManager.info("Environment configured: ${environment}")
         } else {
