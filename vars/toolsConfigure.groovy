@@ -1,6 +1,6 @@
 def call() {
-    sh {
+    sh """
         'mvn -v'
         'java --version'
-    }
+    """
 }
