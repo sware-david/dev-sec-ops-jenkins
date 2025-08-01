@@ -1,5 +1,5 @@
 def call(ArrayList reqSecrets, String env) {
-    def JAVA_ARGS
+    String JAVA_ARGS = ""
     for (requestSecret in reqSecrets) {
         log.info("Loading... secret: ${requestSecret}")
         withCredentials([string(credentialsId: "${env}${requestSecret}", variable: 'secret_jenkins')]) {

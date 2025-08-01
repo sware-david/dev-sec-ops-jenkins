@@ -1,4 +1,4 @@
-def call() {
+def call(String jiraCredentials = "xray_saas_client_id;xray_saas_client_secret;jira_user;jira_token") {
     String credentialsJiraXray = ""
     for (secretId in jiraCredentials.split(";")) {
         secretId = "${secretId}".toUpperCase()

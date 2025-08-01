@@ -1,6 +1,7 @@
 def call(String env = "dev") {
-    def ENVIRONMENT = env.toLowerCase()
-    environmentValidate(envStr)
+    env = env.toLowerCase()
+    def ENVIRONMENT = env
+    environmentValidate(ENVIRONMENT)
 
     def JAVA_ARGS = ""
     def TAGS = params.TAGS
@@ -13,8 +14,10 @@ def call(String env = "dev") {
         stages {
             stage('checkin tools') {
                 steps {
-                    JAVA_ARGS += secretLoadCredentials()
-                    JAVA_ARGS += secretLoadJiraXrayCredentials()
+                    script {
+                        JAVA_ARGS += secretLoadCredentials(env)
+                        JAVA_ARGS += secretLoadJiraXrayCredentials()
+                    }
                     toolsConfigure()
                 }
             }
