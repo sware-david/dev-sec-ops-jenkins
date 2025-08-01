@@ -6,7 +6,7 @@ def call(String tags, String env, String secretArgs = "") {
     String command = "${karateOpts} -Djxray.update.evidence=true ${secretArgs}"
     log.info("Running tests ...")
 
-    listSecrets = secretArgs.trim().split(" {0,1}-D[a-zA-Z-_\.]*(?=(=))=")
+    listSecrets = secretArgs.trim().split(" {0,1}-D[a-zA-Z-_\\.]*(?=(=))=")
     mapPasswords = listSecrets.collectEntries { secret ->
         [(password): secret]
     }
