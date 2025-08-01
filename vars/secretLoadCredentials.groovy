@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 def call(String env = "dev") {
     def inputFile = new File("./src/test/resources/credential.json")
     def jsonSecrets = new JsonSlurper().parse(inputFile)
