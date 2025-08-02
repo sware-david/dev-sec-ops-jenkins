@@ -18,7 +18,7 @@ def call(String env = "dev") {
                         JAVA_ARGS += secretLoadCredentials(env)
                         JAVA_ARGS += secretLoadJiraXrayCredentials()
                         String[] listSecrets = JAVA_ARGS.trim().split(" {0,1}-D[a-zA-Z-_\\.]*(?=(=))=")
-                        listSecrets.collectEntries { secret ->
+                        listSecrets.each { secret ->
                             log.info "type: ${[password: secret].getClass()}"
                             log.info "type map: ${[[password: secret]].getClass()}"
                         }
