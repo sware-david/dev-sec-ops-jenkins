@@ -7,8 +7,10 @@ def call(String tags, String env, String secretArgs = "") {
     log.info("Running tests ...")
 
     String[] listSecrets = secretArgs.trim().split(" {0,1}-D[a-zA-Z-_\\.]*(?=(=))=")
-    listSecrets.collectEntries { secret ->
-        log.info "type: ${[password: secret].getClass()}"
+    List<HashMap> mapPasswords = new ArrayList<>()
+
+    listSecrets.each { secret ->
+        mapPasswords.add([password: secret])
     }
 
     wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: mapPasswords]) {
