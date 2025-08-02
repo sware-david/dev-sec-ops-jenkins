@@ -6,8 +6,10 @@ def call(String tags, String env, String secretArgs = "") {
     String command = "${karateOpts} -Djxray.update.evidence=true ${secretArgs}"
     log.info("Running tests ...")
 
-    listSecrets = secretArgs.trim().split(" {0,1}-D[a-zA-Z-_\\.]*(?=(=))=")
-    mapPasswords = listSecrets.collectEntries { secret -> [password: secret] }
+    String[] listSecrets = secretArgs.trim().split(" {0,1}-D[a-zA-Z-_\\.]*(?=(=))=")
+    listSecrets.collectEntries { secret ->
+        log.info "type: ${[password: secret].getClass()}"
+    }
 
     wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: mapPasswords]) {
         sh "${command}"
