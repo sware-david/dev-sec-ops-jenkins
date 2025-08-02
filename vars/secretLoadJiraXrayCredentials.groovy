@@ -6,7 +6,7 @@ def call(String jiraCredentials = "xray_saas_client_id;xray_saas_client_secret;j
 
         withCredentials([string(credentialsId: "${secretId}", variable: 'secret_from_jenkins')]) {
             credentialsJiraXray += " -D${secretId}=${secret_from_jenkins}"
-            log.info("Load jira secret: ${secretId}, $secret_from_jenkins")
+            log.info("Load jira secret: ${secretId}")
         }
     }
     return credentialsJiraXray
